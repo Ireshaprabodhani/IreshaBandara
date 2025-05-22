@@ -1,12 +1,16 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import ProjectDetails from "./pages/ProjectDetails";
 
 function App() {
   return (
-    <div className="min-h-screen bg-dark text-white flex items-center justify-center">
-      <h1 className="text-4xl font-bold text-primary">Hello, React + Tailwind!</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects/:id" element={<ProjectDetails />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-

@@ -7,11 +7,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#6366f1",     // Indigo
-        secondary: "#facc15",   // Yellow
-        dark: "#0f172a",        // Slate
+        dark: "#0f172a",
+        primary: "#3b82f6",
+        secondary: "#38bdf8",
       },
     },
   },
   plugins: [],
-};
+}
