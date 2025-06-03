@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import devportrait from '../assets/images/1.jpg';
 import edmTool from '../assets/images/3.png';
@@ -7,6 +7,7 @@ import factseeker from '../assets/images/5.png';
 import onemas from '../assets/images/6.png';
 import momentro from '../assets/images/7.png';
 import recipe from '../assets/images/8.png';
+import emailjs from "@emailjs/browser";
 
 
 
@@ -103,6 +104,24 @@ export default function Portfolio() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const formRef = useRef();
+
+  const handleEmailSend = (e) => {
+    e.preventDefault();
+    emailjs.sendForm(
+      'service_f1uai2r', 
+      'template_a6pg8z8', 
+      formRef.current,
+      'xwk1xXa00YX4a03tY' 
+    )
+    .then((result) => {
+      alert('Message sent successfully!');
+      formRef.current.reset();
+    }, (error) => {
+      alert('Failed to send message. Please try again.');
+      console.error(error);
+    });
+  };
 
   // Simulate loading
   useEffect(() => {
@@ -512,46 +531,34 @@ export default function Portfolio() {
                 In addition to my full-stack expertise, I have hands-on experience developing custom WordPress websites 
                 and themes, utilizing HTML, CSS, JavaScript, jQuery, and SCSS to create responsive and user-friendly interfaces.
               </p>
-              
+             
+
               <div className="mb-8">
                 <h4 className="text-xl font-semibold mb-4">Technical Skills</h4>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                   {[
-                    { name: "HTML", progress: "95%" },
-                    { name: "CSS", progress: "95%" },
-                    { name: "JavaScript", progress: "95%" },
-                    { name: "Jquery", progress: "90%" },
-                    { name: "SASS", progress: "95%" },
-                    { name: "React", progress: "90%" },
-                    { name: "Node.js", progress: "85%" },
-                    { name: "TypeScript", progress: "80%" },
-                    { name: "Tailwind CSS", progress: "90%" },
-                    { name: "MongoDB", progress: "75%" },
-                    { name: "JAVA", progress: "60%" },
-                    { name: "Python", progress: "60%" },
-
+                    "HTML",
+                    "CSS", 
+                    "JavaScript",
+                    "React",
+                    "Node.js",
+                    "TypeScript",
+                    "Tailwind CSS",
+                    "MongoDB",
+                    "WordPress",
+                    "PHP",
+                    "Git",
+                    "AWS",
                   ].map((skill, index) => (
                     <motion.div 
                       key={index}
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                      transition={{ duration: 0.5, delay: 0.6 + index * 0.05 }}
                       viewport={{ once: true, amount: 0.3 }}
-                      className="mb-2"
+                      className="bg-gray-800 px-3 py-2 rounded-lg text-center hover:bg-gray-700 transition-colors"
                     >
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm font-medium">{skill.name}</span>
-                        <span className="text-sm text-gray-400">{skill.progress}</span>
-                      </div>
-                      <div className="w-full bg-gray-700 rounded-full h-2">
-                        <motion.div 
-                          className="bg-blue-500 h-2 rounded-full"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: skill.progress }}
-                          transition={{ duration: 0.8, delay: 0.8 + index * 0.1 }}
-                          viewport={{ once: true, amount: 0.3 }}
-                        />
-                      </div>
+                      <span className="text-sm font-medium text-gray-300">{skill}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -820,7 +827,7 @@ export default function Portfolio() {
               <div className="bg-gray-900 rounded-xl p-8 shadow-lg">
                 <h3 className="text-2xl font-bold mb-6">Send Me A Message</h3>
                 
-                <form>
+                <form ref={formRef} onSubmit={handleEmailSend}>
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-400 mb-2">
@@ -828,8 +835,10 @@ export default function Portfolio() {
                       </label>
                       <input
                         type="text"
+                        name="from_name"
                         className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                         placeholder="Name"
+                        required
                       />
                     </div>
                     <div>
@@ -838,41 +847,44 @@ export default function Portfolio() {
                       </label>
                       <input
                         type="email"
+                        name="from_email"
                         className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                         placeholder="john@example.com"
+                        required
                       />
                     </div>
                   </div>
-                  
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-400 mb-2">
                       Subject
                     </label>
                     <input
                       type="text"
+                      name="subject"
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                       placeholder="Project Inquiry"
+                      required
                     />
                   </div>
-                  
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-400 mb-2">
                       Message
                     </label>
                     <textarea
+                      name="message"
                       className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white min-h-32"
                       rows="5"
                       placeholder="Hello, I would like to discuss a project..."
+                      required
                     ></textarea>
                   </div>
-                  
                   <button
                     type="submit"
                     className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors"
                   >
                     Send Message
                   </button>
-                </form>
+              </form>
               </div>
             </motion.div>
           </div>
@@ -896,8 +908,8 @@ export default function Portfolio() {
             </p>
             <div className="flex justify-center space-x-6 mb-6">
               {[
-                { icon: "github", url: "#" },
-                { icon: "linkedin", url: "#" },
+                { icon: "github", url: "https://github.com/Ireshaprabodhani" },
+                { icon: "linkedin", url: "https://www.linkedin.com/in/ireshaprabodhani-8609b2241/" },
                 { icon: "twitter", url: "#" },
               ].map((social, index) => (
                 <a
