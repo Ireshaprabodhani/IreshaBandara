@@ -7,6 +7,7 @@ import factseeker from '../assets/images/5.png';
 import onemas from '../assets/images/6.png';
 import momentro from '../assets/images/7.png';
 import recipe from '../assets/images/8.png';
+import heroimage from '../assets/images/9.png';
 import emailjs from "@emailjs/browser";
 
 
@@ -381,9 +382,9 @@ export default function Portfolio() {
             >
               <div className="relative">
                 <div className="w-80 h-80 rounded-full bg-blue-400 bg-opacity-20 mx-auto overflow-hidden">
-                  <div className="w-full h-full bg-gray-700 rounded-full transform translate-y-5">
+                  <div className="w-full h-full bg-gray-700 rounded-full transform translate-y-0">
                     <img
-                      src={devportrait}
+                      src={heroimage}
                       alt="Developer Portrait" 
                       className="w-full h-full object-cover object-center"
                     />
